@@ -1,7 +1,7 @@
 #include "MastermindDigits.h"
 #include <math.h>
 
-MastermindDigits::MastermindDigits(unsigned int input)
+MastermindDigits::MastermindDigits(unsigned int input) //constructor for main
 {
 	for(int i = 3; i >= 0; i--)
 	{
@@ -10,12 +10,12 @@ MastermindDigits::MastermindDigits(unsigned int input)
 	}
 }
 
-MastermindDigits::MastermindDigits(const MastermindDigits & copy)
+MastermindDigits::MastermindDigits(const MastermindDigits & copy) //copy constructor
 {
 	*this = copy;
 }
 
-MastermindDigits::~MastermindDigits()
+MastermindDigits::~MastermindDigits() //destructor
 {
 	delete[] digits;
 }
@@ -33,7 +33,7 @@ unsigned MastermindDigits::locationRight(MastermindDigits input)
 	unsigned int count = 0;
 	for (int i = 0; i < 4; i++)
 	{
-		if (digits[i] == input.digits[i])
+		if (digits[i] == input.digits[i]) //compare each digit of _this_ array with the input object's array's corresponding digit
 		{
 			count++;
 		}
@@ -49,13 +49,13 @@ unsigned MastermindDigits::locationWrong(MastermindDigits input)
 	{
 		for (int j = 0; j < 4; j++)
 		{
-			if (digits[i] == input.digits[j])
+			if (digits[i] == input.digits[j]) //compare each digit of _this_ array with each digit of the input object's array
 			{
 				count++;
 			}
 		}
 	}
-	count -= getLocationRight;
+	count -= getLocationRight; //subtract the digits which are already in the right location
 	return count;
 }
 
@@ -67,7 +67,7 @@ void MastermindDigits::operator=(const MastermindDigits & e)
 	}
 }
 
-MastermindDigits::operator unsigned int()
+MastermindDigits::operator unsigned int() //type conversion MastermindDigits->unsigned int
 {
 	unsigned int out = 0;
 	unsigned int factor = 1000;
@@ -82,7 +82,7 @@ MastermindDigits::operator unsigned int()
 	return out;
 }
 
-bool MastermindDigits::getException()
+bool MastermindDigits::getException() //if one or more digits of _this_ object's array are not 1-6, return false
 {
 	for (int i = 0; i < 4; i++)
 	{
@@ -91,3 +91,4 @@ bool MastermindDigits::getException()
 	}
 	return false;
 }
+
