@@ -45,13 +45,17 @@ unsigned MastermindDigits::locationWrong(MastermindDigits input)
 {
 	unsigned int count = 0;
 	unsigned int getLocationRight = this->locationRight(input);
+	bool array1[4] = { 0 };
+	bool array2[4] = { 0 };
 	for (int i = 0; i < 4; i++)
 	{
 		for (int j = 0; j < 4; j++)
 		{
-			if (digits[i] == input.digits[j]) //compare each digit of _this_ array with each digit of the input object's array
+			if (digits[i] == input.digits[j] && array1[i] == 0 && array2[j] == 0) //compare each digit of _this_ array with each digit of the input object's array
 			{
 				count++;
+				array1[i] = 1;
+				array2[j] = 1;
 			}
 		}
 	}
