@@ -13,6 +13,7 @@ public:
 	unsigned locationWrong(MastermindDigits);
 	void operator= (const MastermindDigits &);
 	operator unsigned int();
+	bool getException();
 private:
 	unsigned int* digits = new unsigned int[4];
 };

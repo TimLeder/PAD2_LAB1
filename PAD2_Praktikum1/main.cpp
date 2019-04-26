@@ -24,21 +24,48 @@ int main()
 		switch (in) {
 		default: cout << "Enter 1 to TEST, 2 to PLAY or 3 to EXIT." << endl;
 			break;
-		case 1: cout << "Enter the number you want to guess: " << endl;
+		case 1: cout << "Enter the number you want to guess: ";
 			cin >> menuInput;
 			toGuess = MastermindDigits(menuInput);
-			digitContainer = toGuess;
-			cout << digitContainer;
+			if (toGuess.getException() || menuInput > 6666 || menuInput < 1111)
+			{
+				cout << "Only use digits 0-6. Only use four digits." << endl;
+			}
+			else
+			{
+				digitContainer = toGuess;
+				while (gameRunning)
+				{
+					cout << "Enter number: ";
+					cin >> gameInput;
+					guess = MastermindDigits(gameInput);
+					if (gameInput < 6667 && gameInput > 1110 && guess.getException() == false)
+					{
+						if (guess == toGuess)
+						{
+							cout << "Correct, the number was: " << digitContainer << endl;
+							return 0;
+						}
+						else
+						{
+							cout << "Incorrect: " << digitContainer << endl << "Correct locations: " << toGuess.locationRight(guess)
+								<< endl << "Correct digits: " << toGuess.locationWrong(guess) << endl << endl;
+						}
+					}
+					else
+						cout << "Only use digits 0-6. Only use four digits." << endl;
+				}
+			}
 			break;
 		case 2: cout << "Start play mode" << endl;
 			toGuess.makeDigitsToGuess();
 			digitContainer = toGuess;
 			while (gameRunning)
 			{
-				cout << "Enter number: " << endl;
+				cout << "Enter number: ";
 				cin >> gameInput;
 				guess = MastermindDigits(gameInput);
-				if (gameInput < 6667 && gameInput > 1110)
+				if (gameInput < 6667 && gameInput > 1110 && guess.getException() == false)
 				{
 					if (guess == toGuess)
 					{
@@ -47,11 +74,12 @@ int main()
 					}
 					else
 					{
-						cout << "Incorrect: " << digitContainer << endl;
+						cout << endl << "Correct locations: " << toGuess.locationRight(guess)
+							<< endl << "Correct digits: " << toGuess.locationWrong(guess) << endl << endl;;
 					}
 				}
 				else
-					cout << "Invalid Input" << endl;
+					cout << "Only use digits 0-6. Only use four digits." << endl;
 			}
 			break;
 		case 3: return 0;

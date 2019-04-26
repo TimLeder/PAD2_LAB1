@@ -22,22 +22,41 @@ MastermindDigits::~MastermindDigits()
 
 void MastermindDigits::makeDigitsToGuess()
 {
-	unsigned int guess;
-	unsigned int one = rand() % 6 + 1;
-	unsigned int two = 10 * rand() % 6 + 1;
-	unsigned int three = 100 * rand() % 6 + 1;
-	unsigned int four = 1000 * rand() % 6 + 1;
-	*this = MastermindDigits(guess);
+	for (int i = 0; i < 4; i++)
+	{
+		digits[i] = 1 + (rand() % 6);
+	}
 }
 
 unsigned MastermindDigits::locationRight(MastermindDigits input)
 {
-	return 0;
+	unsigned int count = 0;
+	for (int i = 0; i < 4; i++)
+	{
+		if (digits[i] == input.digits[i])
+		{
+			count++;
+		}
+	}
+	return count;
 }
 
 unsigned MastermindDigits::locationWrong(MastermindDigits input)
 {
-	return 0;
+	unsigned int count = 0;
+	unsigned int getLocationRight = this->locationRight(input);
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			if (digits[i] == input.digits[j])
+			{
+				count++;
+			}
+		}
+	}
+	count -= getLocationRight;
+	return count;
 }
 
 void MastermindDigits::operator=(const MastermindDigits & e)
@@ -61,4 +80,14 @@ MastermindDigits::operator unsigned int()
 		out += temp;
 	}
 	return out;
+}
+
+bool MastermindDigits::getException()
+{
+	for (int i = 0; i < 4; i++)
+	{
+		if (digits[i] > 6 || digits[i] == 0)
+			return true;
+	}
+	return false;
 }
